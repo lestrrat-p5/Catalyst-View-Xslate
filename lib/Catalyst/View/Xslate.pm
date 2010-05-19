@@ -133,7 +133,7 @@ sub process {
         $self->render( $c, $template, $stash );
     };
     if (my $err = $@) {
-        return $self->_rendering_error($err);
+        return $self->_rendering_error($c, $err);
     }
 
     my $res = $c->response;
