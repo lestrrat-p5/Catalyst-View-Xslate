@@ -3,7 +3,7 @@ use Moose;
 use namespace::autoclean;
 use Text::Xslate;
 
-our $VERSION = '0.00002';
+our $VERSION = '0.00003';
 
 extends 'Catalyst::View';
 
