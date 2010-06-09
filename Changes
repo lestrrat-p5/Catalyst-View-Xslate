@@ -1,6 +1,9 @@
 Changes
 =======
 
+0.00005 - 09 Jun 2010
+    * Initialize xslate attribute on ACCEPT_CONTEXT
+
 0.00004 - 09 Jun 2010
     * s/functions/function/g
 
