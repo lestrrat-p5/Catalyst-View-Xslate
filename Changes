@@ -1,6 +1,9 @@
 Changes
 =======
 
+0.00004 - 09 Jun 2010
+    * s/functions/function/g
+
 0.00003 - 22 May 2010
     * Fix dependency
 
