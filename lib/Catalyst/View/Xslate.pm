@@ -216,6 +216,16 @@ cause the previously created underlying Text::Xslate object to be cleared
 
 =head2 module
 
+Use this to enable TT2 compatible variable methods via Text::Xslate::Bridge::TT2 or Text::Xslate::Bridge::TT2Like
+
+    package MyApp::View::Xslate;
+    use Moose;
+    extends 'Catalyst::View::Xslate';
+
+    has '+module' => (
+        default => sub { [ 'Text::Xslate::Bridge::TT2Like' ] }
+    );
+
 =head1 TODO
 
 Currently there is no way to render a string.
