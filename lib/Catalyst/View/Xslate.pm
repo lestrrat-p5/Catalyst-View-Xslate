@@ -40,7 +40,7 @@ has cache => (
     trigger => $clearer,
 );
 
-has functions => (
+has function => (
     is => 'rw',
     isa => 'HashRef',
     default => sub { +{} },
@@ -94,7 +94,7 @@ sub _build_xslate {
         path      => $self->path || [ $c->path_to('root') ],
         cache_dir => $self->cache_dir || File::Spec->catdir(File::Spec->tmpdir, $name),
         cache     => $self->cache,
-        functions => $self->functions,
+        function  => $self->function,
         module    => $self->module,
     );
 
@@ -212,7 +212,7 @@ cause the previously created underlying Text::Xslate object to be cleared
 
 =head2 cache
 
-=head2 functions
+=head2 function
 
 =head2 module
 
