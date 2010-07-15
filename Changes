@@ -1,6 +1,10 @@
 Changes
 =======
 
+0.00006 - 15 Jul 2010
+    * Update tests to work with newer Text::Xslate
+    * Require latest Text::Xslate
+
 0.00005 - 09 Jun 2010
     * Initialize xslate attribute on ACCEPT_CONTEXT
 
