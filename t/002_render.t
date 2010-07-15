@@ -18,4 +18,4 @@ my $message = 'Dynamic message';
 $response = request("/test_render?template=non_existant_template.xt");
 
 is (403, $response->code, 'request returned error');
-like($response->content, qr/Xslate: LoadError: Cannot find non_existant_template\.xt /, 'Error from non-existant-template');
+like($response->content, qr/Xslate: LoadError: Cannot find '*non_existant_template\.xt'*/, 'Error from non-existant-template');
