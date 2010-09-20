@@ -1,9 +1,13 @@
+use strict;
+use warnings;
 use Test::More tests => 7;
 
 use_ok('Catalyst::Helper::View::Xslate');
 can_ok('Catalyst::Helper::View::Xslate', qw(mk_compclass) );
 
-my @args = qw(path=.,..,root cache=2 header=foo.tx function=a=>sub{},b=>sub{});
+my $string = 'path=.,..,root cache=2 header=foo.tx function=a=>sub{},b=>sub{}';
+my @args = split /\s+/, $string;
+
 my $res = Catalyst::Helper::View::Xslate::_parse_args(@args);
 
 is_deeply($res, 
