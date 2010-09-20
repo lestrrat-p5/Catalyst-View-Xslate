@@ -25,7 +25,7 @@ is($res->{header}, $/ . "    default => sub { [ 'foo.tx' ] }" . $/,
    'header string rendered properly'
 );
 
-is($res->{cache}, " default => '2'",
+is($res->{cache}, " default => '2' ",
    'cache string rendered properly'
 );
 
