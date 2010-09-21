@@ -1,6 +1,10 @@
 Changes
 =======
 
+0.00007 - 21 Sep 2010
+    * Add helpers to generate stubs (garu)
+    * Add tests for it (garu, lestrrat)
+
 0.00006 - 15 Jul 2010
     * Update tests to work with newer Text::Xslate
     * Require latest Text::Xslate
