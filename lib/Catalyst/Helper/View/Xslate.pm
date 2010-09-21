@@ -34,7 +34,6 @@ List arguments can be separated by comma:
 
     script/create.pl view HTML Xslate cache=2 header=foo.tx,bar.tx suffix=.tt
  
-
 For convenience, it also takes the following argument:
 
 C<bridge> - The optional bridge method. It can be set to C<TT2> for
@@ -174,6 +173,8 @@ __PACKAGE__->config(
 
 Xslate View for [% app %].
 
+=cut
+
 __compclassextended__
 package [% class %];
 use Moose;
@@ -195,3 +196,4 @@ has '+[% key %]' => ([% loader_args.${key} %]);
 
 Xslate View for [% app %].
 
+=cut
