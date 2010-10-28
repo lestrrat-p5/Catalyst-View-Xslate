@@ -1,6 +1,10 @@
 Changes
 =======
 
+0.00008 - 28 Oct 2010
+    * Add content_charset to specify the encoding
+        -> You NEED to pass in a flagged UTF-8 to body
+
 0.00007 - 21 Sep 2010
     * Add helpers to generate stubs (garu)
     * Add tests for it (garu, lestrrat)

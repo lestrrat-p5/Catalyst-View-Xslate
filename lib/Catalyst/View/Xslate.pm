@@ -4,7 +4,7 @@ use Encode;
 use Text::Xslate;
 use namespace::autoclean;
 
-our $VERSION = '0.00007';
+our $VERSION = '0.00008';
 
 extends 'Catalyst::View';
 
