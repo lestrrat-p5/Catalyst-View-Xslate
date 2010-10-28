@@ -20,6 +20,12 @@ has template_extension => (
     default => '.tx'
 );
 
+has content_charset => (
+    is => 'rw',
+    isa => 'Str',
+    default => 'UTF-8'
+);
+
 my $clearer = sub { $_[0]->clear_xslate };
 
 has path => (
@@ -147,10 +153,10 @@ sub process {
 
     my $res = $c->response;
     if (! $res->content_type) {
-        $res->content_type('text/html; charset=utf-8');
+        $res->content_type('text/html; charset=' . $self->content_charset);
     }
 
-    $res->body( encode_utf8 $output );
+    $res->body( encode($self->content_charset, $output) );
 
     return 1;
 }
