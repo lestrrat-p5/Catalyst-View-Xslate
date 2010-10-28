@@ -1,4 +1,5 @@
 package Catalyst::View::Xslate;
+use Encode;
 use Moose;
 use namespace::autoclean;
 use Text::Xslate;
@@ -149,7 +150,7 @@ sub process {
         $res->content_type('text/html; charset=utf-8');
     }
 
-    $res->body( $output );
+    $res->body( encode_utf8 $output );
 
     return 1;
 }
