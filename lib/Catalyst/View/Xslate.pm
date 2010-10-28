@@ -215,6 +215,10 @@ The name used to refer to the Catalyst app object in the template
 The suffix used to auto generate the template name from the action name
 (when you do not explicitly specify the template filename);
 
+=head2 content_charset
+
+The charset used to output the response body. The value defaults to 'UTF-8'.
+
 =head2 Text::Xslate CONFIGURATION
 
 The following parameters are passed to the Text::Xslate constructor.
