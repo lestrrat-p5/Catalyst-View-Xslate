@@ -1,8 +1,8 @@
 package Catalyst::View::Xslate;
-use Encode;
 use Moose;
-use namespace::autoclean;
+use Encode;
 use Text::Xslate;
+use namespace::autoclean;
 
 our $VERSION = '0.00007';
 
