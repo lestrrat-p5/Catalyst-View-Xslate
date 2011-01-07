@@ -3,8 +3,9 @@ use Moose;
 use Encode;
 use Text::Xslate;
 use namespace::autoclean;
+use Scalar::Util qw/blessed weaken/;
 
-our $VERSION = '0.00008';
+our $VERSION = '0.00009';
 
 extends 'Catalyst::View';
 
@@ -91,17 +92,45 @@ has xslate => (
     clearer => 'clear_xslate',
 );
 
+has expose_methods => (
+    is => 'ro',
+    isa => 'ArrayRef[Str]',
+    predicate => 'has_expose_methods',
+);
+
 sub _build_xslate {
     my ($self, $c) = @_;
 
     my $name = $c;
     $name =~ s/::/_/g;
 
+    my $function = $self->function;
+    if ($self->has_expose_methods) {
+        my $meta = $self->meta;
+        foreach my $method_name (@{$self->expose_methods}) {
+            my $method = $meta->find_method_by_name( $method_name );
+            unless ($method) {
+                Catalyst::Exception->throw( "$method_name not found in Xslate view" );
+            }
+            my $method_body = $method->body;
+            my $weak_ctx = $c;
+            weaken $weak_ctx;
+
+            my $sub = sub {
+                $self->$method_body($weak_ctx, @_);
+            };
+
+            $function->{$method_name} = defined $function->{$method_name}
+              ? Catalyst::Exception->throw("$method_name can't be a method in the View and defined as a function.")
+              : $sub;
+        }
+    }
+
     my %args = (
         path      => $self->path || [ $c->path_to('root') ],
         cache_dir => $self->cache_dir || File::Spec->catdir(File::Spec->tmpdir, $name),
         cache     => $self->cache,
-        function  => $self->function,
+        function  => $function,
         module    => $self->module,
     );
 
@@ -164,14 +193,20 @@ sub process {
 sub render {
     my ($self, $c, $template, $vars) = @_;
 
+    $vars = $vars ? $vars : $c->stash;
+
     if ( ! $self->xslate ) {
         $self->_build_xslate( $c );
     }
 
     local $vars->{ $self->catalyst_var } =
         $vars->{ $self->catalyst_var } || $c;
-
-    return $self->xslate->render( $template, $vars );
+    
+    if(ref $template) {
+        return $self->xslate->render_string( $$template, $vars );
+    } else {
+        return $self->xslate->render($template, $vars );
+    }
 }
 
 sub _rendering_error {

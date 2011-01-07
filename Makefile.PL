@@ -5,5 +5,6 @@ all_from 'lib/Catalyst/View/Xslate.pm';
 
 requires 'Catalyst' => 5.80;
 requires 'Text::Xslate' => '0.1045';
+requires 'Scalar::Util';
 
 WriteAll;
