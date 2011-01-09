@@ -291,6 +291,8 @@ Use this to enable TT2 compatible variable methods via Text::Xslate::Bridge::TT2
         default => sub { [ 'Text::Xslate::Bridge::TT2Like' ] }
     );
 
+=head2 expose_methods
+
 =head1 TODO
 
 Currently there is no way to render a string.
