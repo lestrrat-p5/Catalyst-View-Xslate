@@ -1,5 +1,6 @@
 package Catalyst::View::Xslate;
 use Moose;
+use Moose::Util::TypeConstraints qw(coerce from where via subtype);
 use Encode;
 use Text::Xslate;
 use namespace::autoclean;
@@ -92,10 +93,19 @@ has xslate => (
     clearer => 'clear_xslate',
 );
 
+my $expose_methods_tc = subtype 'HashRef', where { $_ };
+coerce $expose_methods_tc,
+  from 'ArrayRef',
+  via {
+    my %values = map { $_ => $_ } @$_;
+    return \%values;
+  };
+
 has expose_methods => (
     is => 'ro',
-    isa => 'ArrayRef[Str]',
+    isa => $expose_methods_tc,
     predicate => 'has_expose_methods',
+    coerce => 1,
 );
 
 sub _build_xslate {
@@ -107,8 +117,9 @@ sub _build_xslate {
     my $function = $self->function;
     if ($self->has_expose_methods) {
         my $meta = $self->meta;
-        foreach my $method_name (@{$self->expose_methods}) {
-            my $method = $meta->find_method_by_name( $method_name );
+        my @names = keys %{$self->expose_methods};
+        foreach my $method_name (@names) {
+            my $method = $meta->find_method_by_name( $self->expose_methods->{$method_name} );
             unless ($method) {
                 Catalyst::Exception->throw( "$method_name not found in Xslate view" );
             }
@@ -120,7 +131,7 @@ sub _build_xslate {
                 $self->$method_body($weak_ctx, @_);
             };
 
-            $function->{$method_name} = defined $function->{$method_name}
+            $function->{$method_name} = $function->{$method_name}
               ? Catalyst::Exception->throw("$method_name can't be a method in the View and defined as a function.")
               : $sub;
         }

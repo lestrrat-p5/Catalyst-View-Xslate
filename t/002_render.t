@@ -1,5 +1,5 @@
 use strict;
-use Test::More tests => 6;
+use Test::More tests => 7;
 
 use FindBin;
 use lib "$FindBin::Bin/lib";
@@ -24,4 +24,10 @@ is(
   request('/test_expose_methods')->content,
   'hello abc world zzz def arg ok',
   'Got expect content for expose_methods test',
+);
+
+is(
+  request('/test_expose_methods_coerced')->content,
+  'hello abc world zzz def arg ok',
+  'Got expect content for test_expose_methods_coerced test',
 );

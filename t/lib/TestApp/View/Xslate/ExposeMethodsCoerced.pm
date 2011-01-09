@@ -1,4 +1,4 @@
-package TestApp::View::Xslate::ExposeMethods;
+package TestApp::View::Xslate::ExposeMethodsCoerced;
 
 use Moose;
 use namespace::autoclean;
@@ -6,17 +6,14 @@ use namespace::autoclean;
 extends 'Catalyst::View::Xslate';
 
 __PACKAGE__->config(
-    expose_methods => {
-      abc => 'abc_method',
-      def => 'def_method',
-   },
+    expose_methods => [qw(abc def)],
 );
 
-sub abc_method {
+sub abc {
     return 'abc';
 }
 
-sub def_method {
+sub def {
     my ($self, $c, $arg) = @_;
     return $self->zzz. " def $arg ". $c->stash->{exposed};
 }

@@ -48,6 +48,20 @@ sub test_expose_methods
     $c->response->body($return);
 }
 
+sub test_expose_methods_coerced
+    : Local
+{
+    my ($self, $c) = @_;
+
+    $c->stash(exposed => 'ok');
+    
+    my $return = $c
+      ->view('Xslate::ExposeMethodsCoerced')
+      ->render($c, \'hello <: abc() :> world <: def("arg") :>');
+
+    $c->response->body($return);
+}
+
 sub end 
     :Private
 {
