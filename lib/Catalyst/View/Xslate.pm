@@ -213,7 +213,7 @@ sub render {
     local $vars->{ $self->catalyst_var } =
         $vars->{ $self->catalyst_var } || $c;
     
-    if(ref $template) {
+    if(ref $template eq 'SCALAR') {
         return $self->xslate->render_string( $$template, $vars );
     } else {
         return $self->xslate->render($template, $vars );
@@ -228,7 +228,6 @@ sub _rendering_error {
     return 0;
 }
 
-
 __PACKAGE__->meta->make_immutable();
 
 1;
@@ -242,8 +241,8 @@ Catalyst::View::Xslate - Text::Xslate View Class
 =head1 SYNOPSIS
 
     package MyApp::View::Xslate;
-    use strict;
-    use base qw(Catalyst::View::Xslate);
+    use Moose;
+    extends 'Catalyst::View::Xslate';
 
     1;
 
@@ -293,9 +292,56 @@ Use this to enable TT2 compatible variable methods via Text::Xslate::Bridge::TT2
 
 =head2 expose_methods
 
-=head1 TODO
+Use this option to specify methods from the View object to be exposed in the
+template. For example, if you have the following View:
 
-Currently there is no way to render a string.
+    package MyApp::View::Xslate;
+    use Moose;
+    extends 'Catalyst::View::Xslate';
+
+    sub foo {
+        my ( $self, $c, @args ) = @_;
+        return ...; # do something with $self, $c, @args
+    }
+
+then by setting expose_methods, you will be able to use foo() as a function in
+the template:
+
+    <: foo("a", "b", "c") # calls $view->foo( $c, "a", "b", "c" ) :>
+
+C<expose_methods> takes either a list of method names to expose, or a hash reference, in order to alias it differently in the template.
+
+    MyApp::View::Xslate->new(
+        # exposes foo(), bar(), baz() in the template
+        expose_methods => [ qw(foo bar baz) ]
+    );
+
+    MyApp::View::Xslate->new(
+        # exposes foo_alias(), bar_alias(), baz_alias() in the template,
+        # but they will in turn call foo(), bar(), baz(), on the view object.
+        expose_methods => {
+            foo => "foo_alias",
+            bar => "bar_alias",
+            baz => "baz_alias",
+        }
+    );
+
+=head1 METHODS
+
+=head1 C<$view->process($c)>
+
+Called by Catalyst.
+
+=head2 C<$view->render($c, $template, \%vars)>
+
+Renders the given C<$template> using variables \%vars.
+
+C<$template> can be a template file name, or a scalar reference to a template
+string.
+
+    $view->render($c, "/path/to/a/template.tx", \%vars );
+
+    $view->render($c, \'This is a xslate template!', \%vars );
 
 =head1 AUTHOR
 
