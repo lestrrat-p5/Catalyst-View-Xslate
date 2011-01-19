@@ -1,11 +1,13 @@
 Changes
 =======
 
-0.00009 - TBD
+0.00009 - 19 Jan 2011
     * Added 'expose_methods' configuration option similar to the TT View
-    * test for above
+      (John Napiorkowski)
+    * test for above (John Napiorkowski)
     * allow you to pass a scalar ref to ->render so that you can render
-      literal / inlined templates
+      literal / inlined templates (John Napiorkowski)
+    * Added docs
 
 0.00008 - 28 Oct 2010
     * Add content_charset to specify the encoding (hiratara)
