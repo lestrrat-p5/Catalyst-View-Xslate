@@ -33,6 +33,34 @@ sub test_render
 #     $c->stash->{message} = $c->view('Xslate::AppConfig')->render($c, $tmpl);
 #     $c->stash->{template} = 'test.xt';
 # }
+#
+sub test_expose_methods
+    : Local
+{
+    my ($self, $c) = @_;
+
+    $c->stash(exposed => 'ok');
+    
+    my $return = $c
+      ->view('Xslate::ExposeMethods')
+      ->render($c, \'hello <: abc() :> world <: def("arg") :>');
+
+    $c->response->body($return);
+}
+
+sub test_expose_methods_coerced
+    : Local
+{
+    my ($self, $c) = @_;
+
+    $c->stash(exposed => 'ok');
+    
+    my $return = $c
+      ->view('Xslate::ExposeMethodsCoerced')
+      ->render($c, \'hello <: abc() :> world <: def("arg") :>');
+
+    $c->response->body($return);
+}
 
 sub end 
     :Private

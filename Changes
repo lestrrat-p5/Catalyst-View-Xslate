@@ -1,6 +1,12 @@
 Changes
 =======
 
+0.00009 - TBD
+    * Added 'expose_methods' configuration option similar to the TT View
+    * test for above
+    * allow you to pass a scalar ref to ->render so that you can render
+      literal / inlined templates
+
 0.00008 - 28 Oct 2010
     * Add content_charset to specify the encoding (hiratara)
         -> You NEED to pass in a flagged UTF-8 to body
