@@ -44,7 +44,7 @@ has cache_dir => (
 
 has cache => (
     is => 'rw',
-    isa => 'Bool',
+    isa => 'Int',
     default => 1,
     trigger => $clearer,
 );
