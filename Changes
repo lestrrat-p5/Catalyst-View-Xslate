@@ -1,6 +1,10 @@
 Changes
 =======
 
+0.00010 - 10 Feb 2011
+    * Fix attribute specification for 'cache' to accept Int as
+      Text::Xslate accepts values 0, 1, or 2 (travail, gfx)
+
 0.00009 - 19 Jan 2011
     * Added 'expose_methods' configuration option similar to the TT View
       (John Napiorkowski)
