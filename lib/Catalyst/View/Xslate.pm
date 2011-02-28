@@ -6,7 +6,7 @@ use Text::Xslate;
 use namespace::autoclean;
 use Scalar::Util qw/blessed weaken/;
 
-our $VERSION = '0.00010';
+our $VERSION = '0.00009';
 
 extends 'Catalyst::View';
 
@@ -161,8 +161,13 @@ sub _build_xslate {
         $args{verbose} = $verbose;
     }
     
-    my $xslate = Text::Xslate->new(%args);
+    my $xslate = $self->_get_xslate(%args);
     $self->xslate( $xslate );
+}
+
+sub _get_xslate {
+    my ($self,%args) = @_;
+    Text::Xslate->new(%args);
 }
 
 sub ACCEPT_CONTEXT {
