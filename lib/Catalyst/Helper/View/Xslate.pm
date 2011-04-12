@@ -160,7 +160,7 @@ use warnings;
 use base 'Catalyst::View::Xslate';
 
 __PACKAGE__->config(
-    TEMPLATE_EXTENSION => '.tx',
+    template_extension => '.tx',
 );
 
 1;
