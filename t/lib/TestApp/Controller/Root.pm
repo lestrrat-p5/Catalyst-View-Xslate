@@ -43,7 +43,7 @@ sub test_expose_methods
     
     my $return = $c
       ->view('Xslate::ExposeMethods')
-      ->render($c, \'hello <: abc() :> world <: def("arg") :>');
+      ->render($c, \'hello <: $abc() :> world <: $def("arg") :>');
 
     $c->response->body($return);
 }
@@ -57,7 +57,7 @@ sub test_expose_methods_coerced
     
     my $return = $c
       ->view('Xslate::ExposeMethodsCoerced')
-      ->render($c, \'hello <: abc() :> world <: def("arg") :>');
+      ->render($c, \'hello <: $abc() :> world <: $def("arg") :>');
 
     $c->response->body($return);
 }
