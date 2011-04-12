@@ -6,7 +6,7 @@ use Text::Xslate;
 use namespace::autoclean;
 use Scalar::Util qw/blessed weaken/;
 
-our $VERSION = '0.00011';
+our $VERSION = '0.00012';
 
 extends 'Catalyst::View';
 

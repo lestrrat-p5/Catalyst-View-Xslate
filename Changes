@@ -1,6 +1,11 @@
 Changes
 =======
 
+0.00012 - 13 Apr 2011
+    * Change how 'exposed_methods' are defined. Now functions are generated
+      at render time for every request, and is available in the stash
+      (John Napiorkowski)
+
 0.00011 - 28 Feb 2011
     * Change TEMPLATE_EXTENSION to template_extension in the helper
     * Factor out the method to generate Xslate object (Getty)
