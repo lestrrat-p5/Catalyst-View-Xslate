@@ -114,34 +114,11 @@ sub _build_xslate {
     my $name = $c;
     $name =~ s/::/_/g;
 
-    my $function = $self->function;
-    if ($self->has_expose_methods) {
-        my $meta = $self->meta;
-        my @names = keys %{$self->expose_methods};
-        foreach my $method_name (@names) {
-            my $method = $meta->find_method_by_name( $self->expose_methods->{$method_name} );
-            unless ($method) {
-                Catalyst::Exception->throw( "$method_name not found in Xslate view" );
-            }
-            my $method_body = $method->body;
-            my $weak_ctx = $c;
-            weaken $weak_ctx;
-
-            my $sub = sub {
-                $self->$method_body($weak_ctx, @_);
-            };
-
-            $function->{$method_name} = $function->{$method_name}
-              ? Catalyst::Exception->throw("$method_name can't be a method in the View and defined as a function.")
-              : $sub;
-        }
-    }
-
     my %args = (
         path      => $self->path || [ $c->path_to('root') ],
         cache_dir => $self->cache_dir || File::Spec->catdir(File::Spec->tmpdir, $name),
         cache     => $self->cache,
-        function  => $function,
+        function  => $self->function,
         module    => $self->module,
     );
 
@@ -313,10 +290,10 @@ template. For example, if you have the following View:
         return ...; # do something with $self, $c, @args
     }
 
-then by setting expose_methods, you will be able to use foo() as a function in
+then by setting expose_methods, you will be able to use $foo() as a function in
 the template:
 
-    <: foo("a", "b", "c") # calls $view->foo( $c, "a", "b", "c" ) :>
+    <: $foo("a", "b", "c") # calls $view->foo( $c, "a", "b", "c" ) :>
 
 C<expose_methods> takes either a list of method names to expose, or a hash reference, in order to alias it differently in the template.
 
@@ -326,7 +303,7 @@ C<expose_methods> takes either a list of method names to expose, or a hash refer
     );
 
     MyApp::View::Xslate->new(
-        # exposes foo_alias(), bar_alias(), baz_alias() in the template,
+        # exposes $foo_alias(), $bar_alias(), $baz_alias() in the template,
         # but they will in turn call foo(), bar(), baz(), on the view object.
         expose_methods => {
             foo => "foo_alias",
