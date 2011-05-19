@@ -1,4 +1,5 @@
 package Catalyst::View::Xslate;
+use Encode;
 use Moose;
 use Moose::Util::TypeConstraints qw(coerce from where via subtype);
 use Encode;
