@@ -80,6 +80,12 @@ has escape => (
     isa => 'Str',
     trigger => $clearer,
 );
+
+has suffix => (
+    is => 'rw',
+    isa => 'Str',
+    trigger => $clearer,
+);
     
 has verbose => (
     is => 'rw',
@@ -123,7 +129,7 @@ sub _build_xslate {
     );
 
     # optional stuff
-    foreach my $field ( qw( input_layer syntax escape verbose ) ) {
+    foreach my $field ( qw( input_layer syntax escape verbose suffix ) ) {
         if (my $value = $self->$field) {
             $args{$field} = $value;
         }
@@ -246,6 +252,11 @@ The name used to refer to the Catalyst app object in the template
 The suffix used to auto generate the template name from the action name
 (when you do not explicitly specify the template filename);
 
+Do not confuse this with the C<suffix> option, which is passed directly to
+the Text::Xslate object instance. This option works on the filename used
+for the initial request, while C<suffix> controls what C<cascade> and
+C<include> directives do inside Text::Xslate.
+
 =head2 content_charset
 
 The charset used to output the response body. The value defaults to 'UTF-8'.
@@ -265,6 +276,16 @@ cause the previously created underlying Text::Xslate object to be cleared
 =head2 function
 
 =head2 module
+
+=head2 input_layer
+
+=head2 syntax
+
+=head2 escape
+
+=head2 verbose
+
+=head2 suffix
 
 Use this to enable TT2 compatible variable methods via Text::Xslate::Bridge::TT2 or Text::Xslate::Bridge::TT2Like
 
