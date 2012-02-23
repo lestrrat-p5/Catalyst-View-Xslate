@@ -1,5 +1,5 @@
 use strict;
-use Test::More tests => 7;
+use Test::More tests => 8;
 
 use FindBin;
 use lib "$FindBin::Bin/lib";
@@ -31,3 +31,9 @@ is(
   'hello abc world zzz def arg ok',
   'Got expect content for test_expose_methods_coerced test',
 );
+
+is
+    request('/test_header_footer')->content,
+    'header! content! footer!',
+    'Got header/footer',
+;

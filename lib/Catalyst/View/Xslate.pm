@@ -56,6 +56,20 @@ has function => (
     trigger => $clearer,
 );
 
+has footer => (
+    is => 'rw',
+    isa => 'ArrayRef',
+    default => sub { +[] },
+    trigger => $clearer
+);
+
+has header => (
+    is => 'rw',
+    isa => 'ArrayRef',
+    default => sub { +[] },
+    trigger => $clearer
+);
+
 has module => (
     is => 'rw',
     isa => 'ArrayRef',
@@ -123,9 +137,8 @@ sub _build_xslate {
     my %args = (
         path      => $self->path || [ $c->path_to('root') ],
         cache_dir => $self->cache_dir || File::Spec->catdir(File::Spec->tmpdir, $name),
-        cache     => $self->cache,
-        function  => $self->function,
-        module    => $self->module,
+        map { ($_ => $self->$_) }
+            qw( cache footer function header module )
     );
 
     # optional stuff
@@ -273,15 +286,19 @@ cause the previously created underlying Text::Xslate object to be cleared
 
 =head2 cache
 
-=head2 function
+=head2 header
 
-=head2 module
+=head2 escape
+
+=head2 footer
+
+=head2 function
 
 =head2 input_layer
 
-=head2 syntax
+=head2 module
 
-=head2 escape
+=head2 syntax
 
 =head2 verbose
 

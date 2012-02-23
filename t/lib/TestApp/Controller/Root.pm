@@ -62,6 +62,15 @@ sub test_expose_methods_coerced
     $c->response->body($return);
 }
 
+sub test_header_footer
+    : Local
+{
+    my ($self, $c) = @_;
+
+    my $return = $c->view('Xslate::HeaderFooter')->render($c, \'content!');
+    $c->response->body($return);
+}
+
 sub end 
     :Private
 {
