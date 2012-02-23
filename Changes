@@ -1,6 +1,9 @@
 Changes
 =======
 
+0.00013 - 25 Feb 2012
+    * Add header/footer support(rt #75256)
+
 0.00012 - 13 Apr 2011
     * Change how 'exposed_methods' are defined. Now functions are generated
       at render time for every request, and is available in the stash
