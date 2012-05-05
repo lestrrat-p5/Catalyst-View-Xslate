@@ -82,13 +82,13 @@ has input_layer => (
     isa => 'Str',
     trigger => $clearer,
 );
-    
+
 has syntax => (
     is => 'rw',
     isa => 'Str',
     trigger => $clearer,
 );
-    
+
 has escape => (
     is => 'rw',
     isa => 'Str',
@@ -100,10 +100,10 @@ has suffix => (
     isa => 'Str',
     trigger => $clearer,
 );
-    
+
 has verbose => (
     is => 'rw',
-    isa => 'Bool',
+    isa => 'Int',
     trigger => $clearer,
 );
 
