@@ -1,6 +1,19 @@
 Changes
 =======
 
+0.00014 - 07 May 2012
+    * Merge pullreq #13: Use Catalyst::Component::ApplicationAttribute (wreis)
+    * Merge pullreq #12: Change type of 'verbose' option to int (wreis)
+    * Merge pullreq #8: Add encode_body attr to avoid automatically
+                        encode the body (sunnavy)
+                        (Author's note: I recognize that there's a time and
+                        place where this is useful, but if you find yourself
+                        needing this and you're doing something that doesn't
+                        require the entire rendered body to run it, then
+                        you're doing something wrong. Instead, see if you can
+                        avoid it by using a combination of Text::Xslate's
+                        function/module attrs and stuff like html_builder())
+
 0.00013 - 25 Feb 2012
     * Add header/footer support(rt #75256)
 
