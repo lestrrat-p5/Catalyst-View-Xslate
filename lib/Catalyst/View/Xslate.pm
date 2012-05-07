@@ -28,6 +28,12 @@ has content_charset => (
     default => 'UTF-8'
 );
 
+has encode_body => (
+    is => 'rw',
+    isa => 'Bool',
+    default => 1,
+);
+
 my $clearer = sub { $_[0]->clear_xslate };
 
 has path => (
@@ -188,7 +194,12 @@ sub process {
         $res->content_type('text/html; charset=' . $self->content_charset);
     }
 
-    $res->body( encode($self->content_charset, $output) );
+    if ( $self->encode_body ) {
+        $res->body( encode($self->content_charset, $output) );
+    }
+    else {
+        $res->body( $output );
+    }
 
     return 1;
 }
@@ -273,6 +284,12 @@ C<include> directives do inside Text::Xslate.
 =head2 content_charset
 
 The charset used to output the response body. The value defaults to 'UTF-8'.
+
+=head2 encode_body
+
+By default, output will be encoded to C<content_charset>.
+You can set it to 0 to disable this behavior.
+(you need to do this if you're using C<Catalyst::Plugin::Unicode::Encoding>)
 
 =head2 Text::Xslate CONFIGURATION
 
