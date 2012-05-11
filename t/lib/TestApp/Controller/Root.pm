@@ -78,8 +78,9 @@ sub end
 
     return 1 if $c->response->status =~ /^3\d\d$/;
     return 1 if $c->response->body;
+    my $req_view = $c->request->param('view');
 
-    my $view = 'View::Xslate::' . ($c->request->param('view') || $c->config->{default_view});
+    my $view = $req_view ? ('Xslate::' . $req_view) : $c->config->{default_view};
     $c->forward($view);
 }
 
