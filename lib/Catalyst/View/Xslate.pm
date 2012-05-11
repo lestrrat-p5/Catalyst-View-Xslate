@@ -350,6 +350,12 @@ Use this to enable TT2 compatible variable methods via Text::Xslate::Bridge::TT2
         default => sub { [ 'Text::Xslate::Bridge::TT2Like' ] }
     );
 
+=head1 preload
+
+Boolean flag indicating if templates should be preloaded. By default this is enabled.
+
+Preloading templates will basically cutdown the cost of template compilation for the first hit.
+
 =head2 expose_methods
 
 Use this option to specify methods from the View object to be exposed in the
@@ -402,6 +408,10 @@ string.
     $view->render($c, "/path/to/a/template.tx", \%vars );
 
     $view->render($c, \'This is a xslate template!', \%vars );
+
+=head2 C<$view->preload_templates>
+
+Preloads templates in $view-E<gt>path.
 
 =head1 AUTHOR
 
