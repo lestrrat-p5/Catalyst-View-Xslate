@@ -43,7 +43,10 @@ has path => (
     is => 'rw',
     isa => 'ArrayRef',
     trigger => $clearer,
+    lazy => 1, builder => '_build_path',
 );
+
+sub _build_path { return [ shift->_app->path_to('root') ] }
 
 has cache_dir => (
     is => 'rw',
@@ -146,7 +149,7 @@ sub _build_xslate {
     $name =~ s/::/_/g;
 
     my %args = (
-        path      => $self->path || [ $app->path_to('root') ],
+        path      => $self->path,
         cache_dir => $self->cache_dir || File::Spec->catdir(File::Spec->tmpdir, $name),
         map { ($_ => $self->$_) }
             qw( cache footer function header module )
