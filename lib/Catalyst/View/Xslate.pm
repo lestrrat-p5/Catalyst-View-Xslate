@@ -111,6 +111,7 @@ has suffix => (
     is => 'rw',
     isa => 'Str',
     trigger => $clearer,
+    default => '.tx',
 );
 
 has verbose => (
