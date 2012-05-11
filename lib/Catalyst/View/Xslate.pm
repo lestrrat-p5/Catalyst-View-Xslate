@@ -5,6 +5,7 @@ use Encode;
 use Text::Xslate;
 use namespace::autoclean;
 use Scalar::Util qw/blessed weaken/;
+use File::Find;
 
 our $VERSION = '0.00014';
 
@@ -42,7 +43,10 @@ has path => (
     is => 'rw',
     isa => 'ArrayRef',
     trigger => $clearer,
+    lazy => 1, builder => '_build_path',
 );
+
+sub _build_path { return [ shift->_app->path_to('root') ] }
 
 has cache_dir => (
     is => 'rw',
@@ -107,6 +111,7 @@ has suffix => (
     is => 'rw',
     isa => 'Str',
     trigger => $clearer,
+    default => '.tx',
 );
 
 has verbose => (
@@ -145,7 +150,7 @@ sub _build_xslate {
     $name =~ s/::/_/g;
 
     my %args = (
-        path      => $self->path || [ $app->path_to('root') ],
+        path      => $self->path,
         cache_dir => $self->cache_dir || File::Spec->catdir(File::Spec->tmpdir, $name),
         map { ($_ => $self->$_) }
             qw( cache footer function header module )
@@ -159,6 +164,21 @@ sub _build_xslate {
     }
 
     return Text::Xslate->new(%args);
+}
+
+sub BUILD {
+  my $self = shift;
+  my ( $paths, $suffix ) = ( $self->path, $self->suffix );
+  my $xslate = $self->xslate;
+  foreach my $path (@$paths) {
+    find sub {
+      if (/\Q$suffix\E$/) {
+        my $file = $File::Find::name;
+        $file =~ s/\Q$path\E .//xsm;
+        $xslate->load_file($file);
+      }
+    }, $path;
+  }
 }
 
 sub process {
