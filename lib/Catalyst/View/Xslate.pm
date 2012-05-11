@@ -212,13 +212,9 @@ sub render {
         }
     }
 
-    if ( ! $self->xslate ) {
-        $self->_build_xslate( $c );
-    }
-
     local $vars->{ $self->catalyst_var } =
         $vars->{ $self->catalyst_var } || $c;
-    
+
     if(ref $template eq 'SCALAR') {
         return $self->xslate->render_string( $$template, $vars );
     } else {
