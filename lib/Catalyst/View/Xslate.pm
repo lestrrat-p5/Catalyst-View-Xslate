@@ -5,6 +5,7 @@ use Encode;
 use Text::Xslate;
 use namespace::autoclean;
 use Scalar::Util qw/blessed weaken/;
+use File::Find;
 
 our $VERSION = '0.00013';
 
@@ -159,6 +160,21 @@ sub _build_xslate {
     }
 
     return Text::Xslate->new(%args);
+}
+
+sub BUILD {
+  my $self = shift;
+  my ( $paths, $suffix ) = ( $self->path, $self->suffix );
+  my $xslate = $self->xslate;
+  foreach my $path (@$paths) {
+    find sub {
+      if (/\Q$suffix\E$/) {
+        my $file = $File::Find::name;
+        $file =~ s/\Q$path\E .//xsm;
+        $xslate->load_file($file);
+      }
+    }, $path;
+  }
 }
 
 sub process {
