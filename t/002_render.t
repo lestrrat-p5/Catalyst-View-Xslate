@@ -1,14 +1,21 @@
 use strict;
-use Test::More tests => 8;
+use Test::More;
 
 use FindBin;
 use lib "$FindBin::Bin/lib";
 
 use_ok('Catalyst::Test', 'TestApp');
 
+my $ctx;
 my $response;
-ok(($response = request("/test_render?template=specified_template.tx&param=parameterized"))->is_success, 'request ok');
+ok((($response, $ctx) = ctx_request("/test_render?template=specified_template.tx&param=parameterized")), 'request ok');
 is($response->content, "I should be a parameterized test in @{[TestApp->config->{name}]}", 'message ok');
+my $view = $ctx->view('Xslate::Pkgconfig');
+$view->content_charset('utf-8');
+ok($view->xslate);
+$view->suffix('.foo');
+ok($view->xslate);
+is($view->xslate->{'suffix'}, '.foo');
 
 my $message = 'Dynamic message';
 
@@ -37,3 +44,5 @@ is
     'header! content! footer!',
     'Got header/footer',
 ;
+
+done_testing;
