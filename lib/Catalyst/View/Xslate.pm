@@ -5,7 +5,7 @@ use Encode;
 use Text::Xslate;
 use namespace::autoclean;
 use Scalar::Util qw/blessed weaken/;
-use File::Find;
+use File::Find ();
 
 our $VERSION = '0.00014';
 
@@ -142,6 +142,12 @@ has expose_methods => (
     coerce => 1,
 );
 
+has preload => (
+    is => 'ro',
+    isa => 'Bool',
+    default => 1,
+);
+
 sub _build_xslate {
     my $self = shift;
 
@@ -167,18 +173,25 @@ sub _build_xslate {
 }
 
 sub BUILD {
-  my $self = shift;
-  my ( $paths, $suffix ) = ( $self->path, $self->suffix );
-  my $xslate = $self->xslate;
-  foreach my $path (@$paths) {
-    find sub {
-      if (/\Q$suffix\E$/) {
-        my $file = $File::Find::name;
-        $file =~ s/\Q$path\E .//xsm;
-        $xslate->load_file($file);
-      }
-    }, $path;
-  }
+    my $self = shift;
+    if ($self->preload) {
+        $self->preload_templates();
+    }
+}
+
+sub preload_templates {
+    my $self = shift;
+    my ( $paths, $suffix ) = ( $self->path, $self->suffix );
+    my $xslate = $self->xslate;
+    foreach my $path (@$paths) {
+        File::Find::find( sub {
+            if (/\Q$suffix\E$/) {
+                my $file = $File::Find::name;
+                $file =~ s/\Q$path\E .//xsm;
+                $xslate->load_file($file);
+            }
+        }, $path);
+    }
 }
 
 sub process {
