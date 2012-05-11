@@ -1,6 +1,11 @@
 Changes
 =======
 
+0.00015 - 12 May 2012
+    * Merge pullreq #14: Remove unused lazy building (wreis)
+    * Merge pullreq #15: Add template preloading (wreis)
+    * Add "preload" parameter to toggle preloading on/off
+
 0.00014 - 07 May 2012
     * Merge pullreq #13: Use Catalyst::Component::ApplicationAttribute (wreis)
     * Merge pullreq #12: Change type of 'verbose' option to int (wreis)
