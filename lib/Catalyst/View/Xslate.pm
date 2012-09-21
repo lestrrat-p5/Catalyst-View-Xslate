@@ -397,7 +397,7 @@ C<expose_methods> takes either a list of method names to expose, or a hash refer
         }
     );
 
-NOTE: you can hook the process of building the exposed methods, see C<build_exposed_method>.
+NOTE: you can mangle the process of building the exposed methods, see C<build_exposed_method>.
 
 =head1 METHODS
 
