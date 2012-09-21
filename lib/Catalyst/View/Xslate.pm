@@ -227,6 +227,11 @@ sub process {
     return 1;
 }
 
+sub build_exposed_method {
+  my ( $self, $ctx, $code ) = @_;
+  return sub { $self->$code($ctx, @_) };
+}
+
 sub render {
     my ($self, $c, $template, $vars) = @_;
 
@@ -237,7 +242,7 @@ sub render {
             if(my $code = $self->can( $self->expose_methods->{$exposed_method} )) {
                 my $weak_ctx = $c;
                 weaken $weak_ctx;
-                $vars->{$exposed_method} = sub { $self->$code($weak_ctx, @_) }
+                $vars->{$exposed_method} = $self->build_exposed_method($weak_ctx, $code);
             } else {
                 Catalyst::Exception->throw( "$exposed_method not found in Xslate view" );
             }
@@ -392,6 +397,8 @@ C<expose_methods> takes either a list of method names to expose, or a hash refer
         }
     );
 
+NOTE: you can hook the process of building the exposed methods, see C<build_exposed_method>.
+
 =head1 METHODS
 
 =head1 C<$view->process($c)>
@@ -412,6 +419,10 @@ string.
 =head2 C<$view->preload_templates>
 
 Preloads templates in $view-E<gt>path.
+
+=head2 C<$view->build_exposed_method>
+
+Hook point for mangling the building process of exposed methods.
 
 =head1 AUTHOR
 
