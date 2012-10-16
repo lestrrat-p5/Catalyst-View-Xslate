@@ -1,6 +1,9 @@
 Changes
 =======
 
+0.00016 - 17 Oct 2012
+    * Merge pullreq #16: Add a build_expose_method (wreis)
+
 0.00015 - 12 May 2012
     * Merge pullreq #14: Remove unused lazy building (wreis)
     * Merge pullreq #15: Add template preloading (wreis)
