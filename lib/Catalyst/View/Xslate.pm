@@ -164,7 +164,7 @@ sub _build_xslate {
 
     # optional stuff
     foreach my $field ( qw( input_layer syntax escape verbose suffix ) ) {
-        if (my $value = $self->$field) {
+        if (defined(my $value = $self->$field)) {
             $args{$field} = $value;
         }
     }
