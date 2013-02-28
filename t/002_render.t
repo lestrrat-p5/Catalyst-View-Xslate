@@ -17,6 +17,8 @@ $view->suffix('.foo');
 ok($view->xslate);
 is($view->xslate->{'suffix'}, '.foo');
 ok($ctx->view('Xslate::Appconfig')->xslate->{'verbose'} == 0, 'verbose is 0');
+is($view->xslate->{'type'}, 'html');
+is($ctx->view('Xslate::Appconfig')->xslate->{'type'}, 'text');
 
 my $message = 'Dynamic message';
 
