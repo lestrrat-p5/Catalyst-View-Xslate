@@ -107,6 +107,12 @@ has escape => (
     trigger => $clearer,
 );
 
+has type => (
+    is => 'rw',
+    isa => 'Str',
+    trigger => $clearer,
+);
+
 has suffix => (
     is => 'rw',
     isa => 'Str',
@@ -163,7 +169,7 @@ sub _build_xslate {
     );
 
     # optional stuff
-    foreach my $field ( qw( input_layer syntax escape verbose suffix ) ) {
+    foreach my $field ( qw( input_layer syntax escape verbose suffix type ) ) {
         if (defined(my $value = $self->$field)) {
             $args{$field} = $value;
         }
@@ -330,6 +336,8 @@ cause the previously created underlying Text::Xslate object to be cleared
 =head2 header
 
 =head2 escape
+
+=head2 type
 
 =head2 footer
 
