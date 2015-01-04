@@ -1,6 +1,11 @@
 Changes
 =======
 
+0.00017 - 28 Feb 2013
+    * Merge pullreq #17: Check passed parameters are defined, not for their
+      boolean values (wreis)
+    * Merge pullreq #18: Add type attribute (wreis)
+
 0.00016 - 17 Oct 2012
     * Merge pullreq #16: Add a build_expose_method (wreis)
 
