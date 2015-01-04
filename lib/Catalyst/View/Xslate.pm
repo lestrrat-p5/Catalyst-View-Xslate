@@ -7,7 +7,7 @@ use namespace::autoclean;
 use Scalar::Util qw/blessed weaken/;
 use File::Find ();
 
-our $VERSION = '0.00017';
+our $VERSION = '0.00018';
 
 extends 'Catalyst::View';
 
@@ -320,6 +320,15 @@ The charset used to output the response body. The value defaults to 'UTF-8'.
 By default, output will be encoded to C<content_charset>.
 You can set it to 0 to disable this behavior.
 (you need to do this if you're using C<Catalyst::Plugin::Unicode::Encoding>)
+
+B<NOTE> Starting with L<Catalyst> version 5.90080 Catalyst will automatically
+encode to UTF8 any text like body responses.  You should either turn off the
+body encoding step in this view using this attribute OR disable this feature
+in the application (your subclass of Catalyst.pm).
+
+    MyApp->config(encoding => undef);
+
+Failure to do so will result in double encoding.
 
 =head2 Text::Xslate CONFIGURATION
 

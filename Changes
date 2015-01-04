@@ -1,6 +1,12 @@
 Changes
 =======
 
+0.00018 - 03 Jan 2015
+    * compatibility shim added to test cases so that the encoding tests will
+      pass with Catalyst v 5.90080+
+    * Documentation on UTF8 and default encoding on new Catalyst.
+    * Updated copyeright notices
+
 0.00017 - 28 Feb 2013
     * Merge pullreq #17: Check passed parameters are defined, not for their
       boolean values (wreis)
