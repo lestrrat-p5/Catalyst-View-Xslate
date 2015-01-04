@@ -9,6 +9,7 @@ __PACKAGE__->config(
     name                  => 'TestApp',
     default_message       => 'hi',
     default_view          => 'Xslate::Pkgconfig',
+    encoding => undef
 );
 
 __PACKAGE__->setup;
