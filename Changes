@@ -2,6 +2,8 @@ Changes
 =======
 
 {{$NEXT}}
+
+0.00018 2015-01-04T06:28:41Z
     * compatibility shim added to test cases so that the encoding tests will
       pass with Catalyst v 5.90080+
     * Documentation on UTF8 and default encoding on new Catalyst.
