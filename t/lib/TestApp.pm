@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use Catalyst; # qw/-Debug/;
 
-our $VERSION = '0.00018';
+our $VERSION = '0.00019';
 
 __PACKAGE__->config(
     name                  => 'TestApp',

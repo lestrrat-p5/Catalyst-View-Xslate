@@ -2,7 +2,10 @@ Changes
 =======
 
 {{$NEXT}}
-    * Apply changes from PR #21 as #23
+
+0.00019 2015-09-29T23:50:59Z
+    * Apply changes from PR #21 as #23. This should fix memory leaks
+      introduced in `expose_method` related code (Mark Ellis)
 
 0.00018 2015-01-04T06:28:41Z
     * compatibility shim added to test cases so that the encoding tests will

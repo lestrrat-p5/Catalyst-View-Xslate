@@ -7,7 +7,7 @@ use namespace::autoclean;
 use Scalar::Util qw/blessed weaken/;
 use File::Find ();
 
-our $VERSION = '0.00018';
+our $VERSION = '0.00019';
 
 extends 'Catalyst::View';
 

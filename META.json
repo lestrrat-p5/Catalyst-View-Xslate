@@ -73,7 +73,7 @@
          "web" : "https://github.com/lestrrat/Catalyst-View-Xslate"
       }
    },
-   "version" : "0.00018",
+   "version" : "0.00019",
    "x_contributors" : [
       "hidek <hide@hide-k.net>",
       "Breno G. de Oliveira <garu@cpan.org>",
@@ -84,6 +84,6 @@
       "Wallace Reis <wreis@123people.com>",
       "Wallace Reis <wallace@reis.me>",
       "John Napiorkowski <jjn1056@yahoo.com>",
-      "Daisuke Maki <lestrrat+github@gmail.com>"
+      "lestrrat <lestrrat+github@gmail.com>"
    ]
 }
