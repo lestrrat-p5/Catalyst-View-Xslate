@@ -238,8 +238,11 @@ sub process {
 }
 
 sub build_exposed_method {
-  my ( $self, $ctx, $code ) = @_;
-  return sub { $self->$code($ctx, @_) };
+    my ( $self, $ctx, $code ) = @_;
+    my $weak_ctx = $ctx;
+    weaken $weak_ctx;
+
+    return sub { $self->$code($weak_ctx, @_) };
 }
 
 sub render {
@@ -250,9 +253,7 @@ sub render {
     if ($self->has_expose_methods) {
         foreach my $exposed_method( keys %{$self->expose_methods} ) {
             if(my $code = $self->can( $self->expose_methods->{$exposed_method} )) {
-                my $weak_ctx = $c;
-                weaken $weak_ctx;
-                $vars->{$exposed_method} = $self->build_exposed_method($weak_ctx, $code);
+                $vars->{$exposed_method} = $self->build_exposed_method($c, $code);
             } else {
                 Catalyst::Exception->throw( "$exposed_method not found in Xslate view" );
             }
