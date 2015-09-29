@@ -52,6 +52,13 @@
             "Scalar::Util" : "0",
             "Text::Xslate" : "0.1045"
          }
+      },
+      "test" : {
+         "requires" : {
+            "Devel::Cycle" : "0",
+            "PadWalker" : "0",
+            "Test::More" : "0"
+         }
       }
    },
    "release_status" : "unstable",

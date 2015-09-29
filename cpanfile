@@ -6,3 +6,9 @@ requires 'Text::Xslate', '0.1045';
 on build => sub {
     requires 'ExtUtils::MakeMaker', '6.36';
 };
+
+on test => sub {
+    requires 'Test::More';
+    requires 'Devel::Cycle';
+    requires 'PadWalker';
+};

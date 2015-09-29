@@ -78,6 +78,18 @@ cause the previously created underlying Text::Xslate object to be cleared
 
 ## verbose
 
+## line\_start
+
+## tag\_start
+
+## tag\_end
+
+## warn\_handler
+
+## die\_handler
+
+## pre\_process\_handler
+
 ## suffix
 
 Use this to enable TT2 compatible variable methods via Text::Xslate::Bridge::TT2 or Text::Xslate::Bridge::TT2Like
